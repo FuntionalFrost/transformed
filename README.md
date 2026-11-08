@@ -53,8 +53,8 @@ It synthesizes academic computer science, hardware micro-architecture, and auton
 
 ### Prerequisites
 
-- Node.js $\ge$ 20.x
-- [pnpm](https://pnpm.io/) $\ge$ 9.x (recommended)
+- Node.js $\ge$ 26.x
+- [pnpm](https://pnpm.io/) $\ge$ 12.x (recommended)
 
 ### Installation
 

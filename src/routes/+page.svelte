@@ -149,6 +149,17 @@
 		el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 	}
 
+	function switchViewMode(mode: 'timeline' | 'grid' | 'lab') {
+		viewMode = mode;
+		setTimeout(() => {
+			const targetId = mode === 'lab' ? 'simulator-lab' : 'timeline-section';
+			const el = document.getElementById(targetId);
+			if (el) {
+				el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			}
+		}, 40);
+	}
+
 	let filteredMilestones = $derived.by(() => {
 		return TIMELINE_MILESTONES.filter((m: Milestone) => {
 			const matchesYear = selectedYear === 'all' || m.year === selectedYear;
@@ -342,7 +353,7 @@
 			<div class="flex items-center gap-1 rounded-lg border border-slate-800 bg-slate-900/90 p-1">
 				<button
 					type="button"
-					onclick={() => (viewMode = 'timeline')}
+					onclick={() => switchViewMode('timeline')}
 					aria-pressed={viewMode === 'timeline'}
 					class="flex items-center gap-1.5 rounded-md px-3 py-1 font-mono text-xs transition-colors {viewMode ===
 					'timeline'
@@ -367,7 +378,7 @@
 				</button>
 				<button
 					type="button"
-					onclick={() => (viewMode = 'grid')}
+					onclick={() => switchViewMode('grid')}
 					aria-pressed={viewMode === 'grid'}
 					class="flex items-center gap-1.5 rounded-md px-3 py-1 font-mono text-xs transition-colors {viewMode ===
 					'grid'
@@ -392,7 +403,7 @@
 				</button>
 				<button
 					type="button"
-					onclick={() => (viewMode = 'lab')}
+					onclick={() => switchViewMode('lab')}
 					aria-pressed={viewMode === 'lab'}
 					class="flex items-center gap-1.5 rounded-md px-3 py-1 font-mono text-xs transition-colors {viewMode ===
 					'lab'
@@ -930,7 +941,7 @@
 			<!-- Interactive Controls: Filter & Search Bar Floating Dock -->
 			<section
 				id="timeline-section"
-				class="sticky top-[76px] z-30 mb-8 [transform:translateZ(0)] rounded-2xl border border-slate-800/90 bg-slate-950/95 p-3.5 px-4 shadow-[0_16px_40px_rgba(0,0,0,0.85)] ring-1 ring-slate-800/60 backdrop-blur-md sm:px-5"
+				class="sticky top-[76px] z-30 mb-8 [transform:translateZ(0)] scroll-mt-24 rounded-2xl border border-slate-800/90 bg-slate-950/95 p-3.5 px-4 shadow-[0_16px_40px_rgba(0,0,0,0.85)] ring-1 ring-slate-800/60 backdrop-blur-md sm:px-5"
 			>
 				<!-- Timeline Year Scrubber -->
 				<div class="scrollbar-none flex items-center gap-2 overflow-x-auto pb-2">
@@ -1022,7 +1033,7 @@
 		<!-- Content Rendering according to viewMode -->
 		{#if viewMode === 'lab'}
 			<!-- Dedicated Interactive Simulator Suite -->
-			<section class="space-y-6">
+			<section id="simulator-lab" class="scroll-mt-24 space-y-6">
 				<div
 					class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3"
 				>
