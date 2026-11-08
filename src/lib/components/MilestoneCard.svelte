@@ -45,7 +45,7 @@
 </script>
 
 <div
-	class="group tensor-bracket milestone-card milestone-card-contain relative flex flex-col justify-between rounded-xl border p-5 transition-all duration-300 hover:shadow-2xl {attentionType ===
+	class="group tensor-bracket milestone-card milestone-card-contain relative flex flex-col justify-between rounded-xl border p-3.5 transition-all duration-300 hover:shadow-2xl sm:p-5 {attentionType ===
 	'flash-attention'
 		? 'border-amber-400/80 bg-gradient-to-b from-slate-900/95 via-amber-950/20 to-slate-900/95 shadow-[0_0_35px_rgba(245,158,11,0.22)] ring-1 ring-amber-400/40'
 		: attentionType === 'attention-core'

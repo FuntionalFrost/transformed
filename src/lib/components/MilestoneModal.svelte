@@ -56,7 +56,7 @@
 
 		<!-- Modal Content Container -->
 		<div
-			class="relative max-h-[92vh] w-full max-w-4xl overflow-y-auto rounded-2xl border bg-slate-900 p-6 text-slate-100 shadow-2xl sm:p-8 {category.borderClass} {category.glowClass}"
+			class="relative max-h-[92vh] w-full max-w-4xl overflow-y-auto rounded-2xl border bg-slate-900 p-4 text-slate-100 shadow-2xl sm:p-8 {category.borderClass} {category.glowClass}"
 		>
 			<!-- Close Button -->
 			<button

@@ -241,6 +241,12 @@
 							<div
 								role="gridcell"
 								tabindex="0"
+								onclick={() => (hoveredCell = { row: r, col: c })}
+								onkeydown={(e) => {
+									if (e.key === 'Enter' || e.key === ' ') {
+										hoveredCell = { row: r, col: c };
+									}
+								}}
 								onmouseenter={() => (hoveredCell = { row: r, col: c })}
 								onmouseleave={() => (hoveredCell = null)}
 								onfocus={() => (hoveredCell = { row: r, col: c })}
@@ -279,7 +285,7 @@
 						>PIXEL REGISTER INSPECTOR</span
 					>
 					<span class="rounded bg-slate-800 px-1.5 py-0.5 text-[9px] text-slate-400">
-						{hoveredCell ? `[${hoveredCell.row}, ${hoveredCell.col}]` : 'HOVER CELL'}
+						{hoveredCell ? `[${hoveredCell.row}, ${hoveredCell.col}]` : 'TAP OR HOVER'}
 					</span>
 				</div>
 
@@ -316,7 +322,7 @@
 					</div>
 				{:else}
 					<div class="py-4 text-center text-xs text-slate-500">
-						Move your cursor across any cell in the 16×16 tile to inspect attention weights and SRAM
+						Tap or hover across any cell in the 16×16 tile to inspect attention weights and SRAM
 						warp registers.
 					</div>
 				{/if}

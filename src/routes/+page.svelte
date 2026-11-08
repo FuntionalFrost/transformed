@@ -218,10 +218,12 @@
 		<div
 			class="pointer-events-none absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"
 		></div>
-		<div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
-			<div class="flex items-center gap-3">
+		<div
+			class="mx-auto flex h-14 max-w-7xl items-center justify-between gap-2 px-3 sm:h-16 sm:gap-4 sm:px-6"
+		>
+			<div class="flex items-center gap-2 sm:gap-3">
 				<div
-					class="group relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg border border-cyan-500/40 bg-gradient-to-br from-slate-900 via-slate-950 to-cyan-950/40 shadow-[0_0_15px_rgba(6,182,212,0.2)] ring-1 ring-cyan-400/20 transition-all duration-300 hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(6,182,212,0.35)]"
+					class="group relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-cyan-500/40 bg-gradient-to-br from-slate-900 via-slate-950 to-cyan-950/40 shadow-[0_0_15px_rgba(6,182,212,0.2)] ring-1 ring-cyan-400/20 transition-all duration-300 hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(6,182,212,0.35)] sm:h-9 sm:w-9"
 				>
 					<!-- Micro-chip corner fiducials -->
 					<div class="pointer-events-none absolute inset-0 opacity-40">
@@ -237,7 +239,7 @@
 
 					<!-- Bespoke Attention Archive Logo Mark: Architectural 'A' with Quantum Attention Crossbar -->
 					<svg
-						class="h-5 w-5 transition-transform duration-300 group-hover:scale-105"
+						class="h-4.5 w-4.5 transition-transform duration-300 group-hover:scale-105 sm:h-5 sm:w-5"
 						viewBox="0 0 32 32"
 						fill="none"
 						aria-label="Attention Archive Logo"
@@ -330,11 +332,11 @@
 				</div>
 				<div>
 					<span
-						class="flex items-center gap-2 text-sm font-black tracking-wider text-white uppercase sm:text-base"
+						class="flex items-center gap-1.5 text-xs font-black tracking-wider text-white uppercase sm:gap-2 sm:text-base"
 					>
-						<span>Attention Archive</span>
+						<span class="whitespace-nowrap">Attention Archive</span>
 						<span
-							class="rounded-full border border-cyan-400/50 bg-cyan-500/15 px-2 py-0.5 font-mono text-[10px] font-bold text-cyan-300"
+							class="xs:inline-flex hidden rounded-full border border-cyan-400/50 bg-cyan-500/15 px-1.5 py-0.5 font-mono text-[9px] font-bold text-cyan-300 sm:px-2 sm:text-[10px]"
 						>
 							2017 → 2026
 						</span>
@@ -350,12 +352,14 @@
 			</div>
 
 			<!-- View Mode Toggles -->
-			<div class="flex items-center gap-1 rounded-lg border border-slate-800 bg-slate-900/90 p-1">
+			<div
+				class="flex items-center gap-0.5 rounded-lg border border-slate-800 bg-slate-900/90 p-0.5 sm:gap-1 sm:p-1"
+			>
 				<button
 					type="button"
 					onclick={() => switchViewMode('timeline')}
 					aria-pressed={viewMode === 'timeline'}
-					class="flex items-center gap-1.5 rounded-md px-3 py-1 font-mono text-xs transition-colors {viewMode ===
+					class="flex items-center gap-1 rounded-md px-2 py-1 font-mono text-[11px] transition-colors sm:gap-1.5 sm:px-3 sm:text-xs {viewMode ===
 					'timeline'
 						? 'bg-cyan-600 font-bold text-white shadow-sm'
 						: 'text-slate-400 hover:text-slate-200'}"
@@ -374,13 +378,14 @@
 						<circle cx="7" cy="12" r="2" fill="currentColor" />
 						<circle cx="12" cy="12" r="2" fill="currentColor" />
 					</svg>
-					<span>Timeline Flow</span>
+					<span class="hidden sm:inline">Timeline Flow</span>
+					<span class="sm:hidden">Timeline</span>
 				</button>
 				<button
 					type="button"
 					onclick={() => switchViewMode('grid')}
 					aria-pressed={viewMode === 'grid'}
-					class="flex items-center gap-1.5 rounded-md px-3 py-1 font-mono text-xs transition-colors {viewMode ===
+					class="flex items-center gap-1 rounded-md px-2 py-1 font-mono text-[11px] transition-colors sm:gap-1.5 sm:px-3 sm:text-xs {viewMode ===
 					'grid'
 						? 'bg-cyan-600 font-bold text-white shadow-sm'
 						: 'text-slate-400 hover:text-slate-200'}"
@@ -399,13 +404,14 @@
 						<rect x="14" y="14" width="7" height="7" rx="1" />
 						<rect x="3" y="14" width="7" height="7" rx="1" />
 					</svg>
-					<span>Matrix Grid</span>
+					<span class="hidden sm:inline">Matrix Grid</span>
+					<span class="sm:hidden">Grid</span>
 				</button>
 				<button
 					type="button"
 					onclick={() => switchViewMode('lab')}
 					aria-pressed={viewMode === 'lab'}
-					class="flex items-center gap-1.5 rounded-md px-3 py-1 font-mono text-xs transition-colors {viewMode ===
+					class="flex items-center gap-1 rounded-md px-2 py-1 font-mono text-[11px] transition-colors sm:gap-1.5 sm:px-3 sm:text-xs {viewMode ===
 					'lab'
 						? 'bg-cyan-600 font-bold text-white shadow-sm'
 						: 'text-slate-400 hover:text-slate-200'}"
@@ -421,7 +427,8 @@
 					>
 						<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
 					</svg>
-					<span>Simulator Lab</span>
+					<span class="hidden sm:inline">Simulator Lab</span>
+					<span class="sm:hidden">Lab</span>
 				</button>
 			</div>
 		</div>
@@ -498,9 +505,9 @@
 			</div>
 
 			<h1
-				class="text-4xl leading-none font-black tracking-tight text-white uppercase sm:text-6xl lg:text-7xl"
+				class="text-3xl font-black tracking-tight text-white uppercase sm:text-5xl sm:leading-none md:text-6xl lg:text-7xl"
 			>
-				The Architecture of <br />
+				The Architecture of <br class="hidden sm:inline" />
 				<span
 					class="bg-gradient-to-r from-cyan-400 via-amber-300 to-violet-400 bg-clip-text text-transparent"
 				>
@@ -537,19 +544,23 @@
 
 				<!-- 1. Top Substrate Telemetry Header -->
 				<div
-					class="relative z-10 flex flex-wrap items-center justify-between gap-2 border-b border-slate-800/80 bg-slate-900/60 px-4 py-2.5 font-mono text-[11px]"
+					class="relative z-10 flex flex-col justify-between gap-2.5 border-b border-slate-800/80 bg-slate-900/60 p-3 font-mono text-[11px] sm:flex-row sm:items-center sm:px-4 sm:py-2.5"
 				>
-					<div class="flex items-center gap-2">
+					<div class="flex flex-wrap items-center justify-between gap-2 sm:justify-start">
+						<div class="flex items-center gap-2">
+							<span
+								class="flex h-2 w-2 shrink-0 rounded-full {isReactorSurging
+									? 'animate-ping bg-amber-400'
+									: 'animate-pulse bg-cyan-400'}"
+							></span>
+							<span
+								class="text-[10px] font-bold tracking-wider text-slate-200 uppercase sm:text-xs"
+							>
+								NOC-DIE // CANONICAL ATTENTION OPERATOR
+							</span>
+						</div>
 						<span
-							class="flex h-2 w-2 rounded-full {isReactorSurging
-								? 'animate-ping bg-amber-400'
-								: 'animate-pulse bg-cyan-400'}"
-						></span>
-						<span class="font-bold tracking-wider text-slate-200 uppercase">
-							NOC-DIE // CANONICAL ATTENTION OPERATOR
-						</span>
-						<span
-							class="rounded border border-cyan-800/60 bg-cyan-950/70 px-2 py-0.5 font-mono text-[10px] text-cyan-300"
+							class="rounded border border-cyan-800/60 bg-cyan-950/70 px-2 py-0.5 font-mono text-[9px] text-cyan-300 sm:text-[10px]"
 						>
 							{isReactorSurging
 								? '⚡ DISPATCHING: WARP GEMM + ASYNC SRAM TILING'
@@ -557,7 +568,7 @@
 						</span>
 					</div>
 
-					<div class="flex items-center gap-2">
+					<div class="flex flex-wrap items-center justify-between gap-2 sm:justify-end">
 						<!-- TeX vs Bit-Tile Mode Toggle -->
 						<div
 							class="flex items-center rounded border border-slate-700/80 bg-slate-800/80 p-0.5 font-mono text-[10px]"
@@ -587,33 +598,34 @@
 							</button>
 						</div>
 
-						<button
-							type="button"
-							onclick={triggerReactorSurge}
-							class="cursor-pointer rounded border px-2.5 py-0.5 font-mono text-[10px] font-bold tracking-wider uppercase transition-all duration-300 {isReactorSurging
-								? 'animate-pulse border-amber-400 bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/40'
-								: 'border-cyan-500/40 bg-cyan-950/40 text-cyan-300 hover:border-cyan-400 hover:bg-cyan-500/20 hover:text-white'}"
-							title="Simulate Tensor Core Forward Pass Dispatch"
-						>
-							{isReactorSurging ? '⚡ DISPATCHING KERNEL...' : 'BENCHMARK DISPATCH ⚡'}
-						</button>
-						<button
-							type="button"
-							onclick={copyHeroLatex}
-							class="cursor-pointer rounded border border-slate-700/80 bg-slate-800/80 px-2 py-0.5 font-mono text-[10px] font-semibold text-slate-300 transition-colors hover:border-cyan-400 hover:bg-slate-700 hover:text-cyan-200"
-							title="Copy Canonical LaTeX Formula"
-						>
-							{copiedHeroLatex ? 'Copied!' : 'Copy TeX'}
-						</button>
-						<span class="hidden text-slate-500 sm:inline">NeurIPS 2017 · 2022 · 2023</span>
+						<div class="flex items-center gap-2">
+							<button
+								type="button"
+								onclick={triggerReactorSurge}
+								class="cursor-pointer rounded border px-2 py-0.5 font-mono text-[10px] font-bold tracking-wider uppercase transition-all duration-300 sm:px-2.5 {isReactorSurging
+									? 'animate-pulse border-amber-400 bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/40'
+									: 'border-cyan-500/40 bg-cyan-950/40 text-cyan-300 hover:border-cyan-400 hover:bg-cyan-500/20 hover:text-white'}"
+								title="Simulate Tensor Core Forward Pass Dispatch"
+							>
+								{isReactorSurging ? '⚡ DISPATCHING...' : 'BENCHMARK DISPATCH ⚡'}
+							</button>
+							<button
+								type="button"
+								onclick={copyHeroLatex}
+								class="cursor-pointer rounded border border-slate-700/80 bg-slate-800/80 px-2 py-0.5 font-mono text-[10px] font-semibold text-slate-300 transition-colors hover:border-cyan-400 hover:bg-slate-700 hover:text-cyan-200"
+								title="Copy Canonical LaTeX Formula"
+							>
+								{copiedHeroLatex ? 'Copied!' : 'Copy TeX'}
+							</button>
+						</div>
 					</div>
 				</div>
 
 				<!-- 2. Formal Operator Specification Core -->
-				<div class="relative z-10 px-5 pt-5 pb-4">
+				<div class="relative z-10 p-3 sm:px-5 sm:pt-5 sm:pb-4">
 					{#if heroDieView === 'formula'}
-						<!-- Mathematical Formula -->
-						<div class="py-2 text-center text-lg sm:text-xl">
+						<!-- Mathematical Formula with responsive scaling & smooth overflow scrolling -->
+						<div class="hero-operator-math w-full overflow-x-auto py-2 text-center">
 							<KatexMath latex={attentionHeroFormula} displayMode={true} copyable={false} />
 						</div>
 					{:else}
@@ -625,11 +637,11 @@
 
 					<!-- Fast SRAM Tiling Footnote & Inspector Link -->
 					<div
-						class="mt-2 flex flex-wrap items-center justify-between gap-2 border-t border-slate-800/60 pt-2 font-mono text-[11px]"
+						class="mt-2 flex flex-col justify-between gap-1.5 border-t border-slate-800/60 pt-2 font-mono text-[10px] sm:flex-row sm:items-center sm:text-[11px]"
 					>
 						<div class="flex items-center gap-2 text-slate-400">
 							<span class="inline-flex items-center gap-1.5 text-cyan-400">
-								<span class="h-1.5 w-1.5 rounded-full bg-cyan-400"></span>
+								<span class="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400"></span>
 								<span>IO-aware asynchronous SRAM tiling & online softmax (Tri Dao et al.)</span>
 							</span>
 						</div>
@@ -639,7 +651,7 @@
 								viewMode = 'lab';
 								activeLabTab = 'bitboard';
 							}}
-							class="cursor-pointer font-semibold text-cyan-400 underline decoration-cyan-500/40 hover:text-cyan-200"
+							class="cursor-pointer text-left font-semibold text-cyan-400 underline decoration-cyan-500/40 hover:text-cyan-200 sm:text-right"
 						>
 							Inspect Full Bitboard in Simulator Lab →
 						</button>
@@ -650,13 +662,16 @@
 				<div class="relative z-10 border-t border-b border-slate-800/80 bg-slate-950/70 py-1.5">
 					<!-- Crossbar Telemetry Rail -->
 					<div
-						class="flex items-center justify-between px-4 pb-1 font-mono text-[9px] tracking-wider text-slate-500 uppercase"
+						class="flex flex-col justify-between gap-1 px-3 pb-1 font-mono text-[9px] tracking-wider text-slate-500 uppercase sm:flex-row sm:items-center sm:px-4"
 					>
-						<div class="flex items-center gap-1.5 text-slate-400">
-							<span class="h-1 w-1 rounded-full bg-cyan-400"></span>
-							<span>HIGH-SPEED ON-CHIP CROSSBAR // 128-BIT ASYNC INTERCONNECT</span>
+						<div class="flex items-center gap-1.5 truncate text-slate-400">
+							<span class="h-1 w-1 shrink-0 rounded-full bg-cyan-400"></span>
+							<span class="truncate">HIGH-SPEED ON-CHIP CROSSBAR // 128-BIT ASYNC INTERCONNECT</span
+							>
 						</div>
-						<span>3.2 TB/S HBM3e ⟷ 256 KB L1/SRAM PER SM</span>
+						<span class="text-slate-400/80 sm:text-right"
+							>3.2 TB/S HBM3e ⟷ 256 KB L1/SRAM PER SM</span
+						>
 					</div>
 
 					<!-- Silicon Bus Transmission Channels (Directly feeding into the 4 Functional Blocks) -->
@@ -941,7 +956,7 @@
 			<!-- Interactive Controls: Filter & Search Bar Floating Dock -->
 			<section
 				id="timeline-section"
-				class="sticky top-[76px] z-30 mb-8 [transform:translateZ(0)] scroll-mt-24 rounded-2xl border border-slate-800/90 bg-slate-950/95 p-3.5 px-4 shadow-[0_16px_40px_rgba(0,0,0,0.85)] ring-1 ring-slate-800/60 backdrop-blur-md sm:px-5"
+				class="sticky top-[60px] z-30 mb-6 [transform:translateZ(0)] scroll-mt-24 rounded-xl border border-slate-800/90 bg-slate-950/95 p-2.5 px-3 shadow-[0_16px_40px_rgba(0,0,0,0.85)] ring-1 ring-slate-800/60 backdrop-blur-md sm:top-[76px] sm:mb-8 sm:rounded-2xl sm:p-3.5 sm:px-5"
 			>
 				<!-- Timeline Year Scrubber -->
 				<div class="scrollbar-none flex items-center gap-2 overflow-x-auto pb-2">
@@ -972,12 +987,14 @@
 
 				<!-- Category Pills & Search Input -->
 				<div class="mt-2.5 flex flex-wrap items-center justify-between gap-3">
-					<!-- Category Filters -->
-					<div class="flex flex-wrap items-center gap-1.5">
+					<!-- Category Filters (Horizontally scrollable on mobile) -->
+					<div
+						class="scrollbar-none flex w-full items-center gap-1.5 overflow-x-auto pb-1 sm:w-auto sm:flex-wrap sm:pb-0"
+					>
 						<button
 							type="button"
 							onclick={() => (selectedCategory = 'all')}
-							class="rounded px-2.5 py-1 text-xs font-medium transition-colors {selectedCategory ===
+							class="rounded px-2.5 py-1 text-xs font-medium whitespace-nowrap transition-colors {selectedCategory ===
 							'all'
 								? 'bg-slate-700 font-semibold text-white'
 								: 'border border-slate-800 bg-slate-900/80 text-slate-400 hover:text-slate-200'}"
@@ -991,7 +1008,7 @@
 							<button
 								type="button"
 								onclick={() => (selectedCategory = cat.id)}
-								class="rounded border px-2.5 py-1 text-xs font-medium transition-all {selectedCategory ===
+								class="rounded border px-2.5 py-1 text-xs font-medium whitespace-nowrap transition-all {selectedCategory ===
 								cat.id
 									? `${cat.badgeClass} font-bold shadow-sm`
 									: 'border-slate-800 bg-slate-900/80 text-slate-400 hover:text-slate-200'}"
@@ -1365,8 +1382,8 @@
 										: 'bg-cyan-500/50'}"
 							></div>
 
-							<!-- Milestone Card Container -->
-							<div class="ml-10 w-full sm:ml-0 sm:w-[calc(50%-2rem)]">
+							<!-- Milestone Card Container (Sized cleanly on mobile without horizontal overflow) -->
+							<div class="ml-9 w-[calc(100%-2.25rem)] min-w-0 sm:ml-0 sm:w-[calc(50%-2rem)]">
 								<MilestoneCard
 									{milestone}
 									onSelect={(m: Milestone) => (activeModalMilestone = m)}
