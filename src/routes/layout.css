@@ -1,0 +1,208 @@
+@import 'tailwindcss';
+@import 'yaxa-svelte/theme.css';
+@import 'katex/dist/katex.min.css';
+@plugin '@tailwindcss/typography';
+
+@layer base {
+	:root {
+		color-scheme: dark;
+	}
+	body {
+		@apply bg-slate-950 text-slate-100 antialiased selection:bg-cyan-500/30 selection:text-cyan-200;
+		font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+	}
+}
+
+/* Accessible Focus Indicators adhering to WCAG 2.4.7 Focus Visible & 1.4.11 Non-text Contrast */
+:where(a:any-link, button, input):focus-visible {
+	outline: 2px solid #06b6d4;
+	outline-offset: 2px;
+}
+
+/* Reduced Motion Respect (WCAG 2.3.3 Animation from Interactions) */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	::before,
+	::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* Elegant scrollbar for main page */
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+::-webkit-scrollbar-track {
+	background: rgba(10, 15, 30, 0.4);
+}
+::-webkit-scrollbar-thumb {
+	background: rgba(51, 65, 85, 0.6);
+	border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: rgba(100, 116, 139, 0.85);
+}
+
+/* KaTeX formulas: smooth horizontal scrolling without persistent ugly gray track bars */
+.katex-display {
+	margin: 0.35rem 0 !important;
+	overflow-x: auto;
+	overflow-y: hidden;
+	padding: 0.2rem 0.25rem;
+	scrollbar-width: thin;
+	scrollbar-color: rgba(51, 65, 85, 0.4) transparent;
+	-ms-overflow-style: auto;
+}
+
+.katex-display::-webkit-scrollbar,
+.katex-scroll-container::-webkit-scrollbar {
+	height: 3px;
+}
+
+.katex-display::-webkit-scrollbar-track,
+.katex-scroll-container::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.katex-display::-webkit-scrollbar-thumb,
+.katex-scroll-container::-webkit-scrollbar-thumb {
+	background: rgba(51, 65, 85, 0.5);
+	border-radius: 9999px;
+}
+
+.katex-display::-webkit-scrollbar-thumb:hover,
+.katex-scroll-container::-webkit-scrollbar-thumb:hover {
+	background: rgba(6, 182, 212, 0.6);
+}
+
+.katex {
+	text-rendering: optimizeLegibility;
+}
+
+/* Card-level compact KaTeX font scaling to prevent formula clipping in multi-column grids */
+.milestone-card .katex-display {
+	font-size: 0.9em;
+	margin: 0.2rem 0 !important;
+}
+
+@media (max-width: 768px) {
+	.milestone-card .katex-display {
+		font-size: 0.82em;
+	}
+}
+
+/* Attention Is All You Need & FlashAttention-1/2 Aesthetic System */
+.attention-grid {
+	background-size: 36px 36px;
+	background-image:
+		linear-gradient(to right, rgba(6, 182, 212, 0.035) 1px, transparent 1px),
+		linear-gradient(to bottom, rgba(6, 182, 212, 0.035) 1px, transparent 1px);
+}
+
+/* GPU Compositor Acceleration & Viewport Offscreen Culling */
+.milestone-card-contain {
+	content-visibility: auto;
+	contain-intrinsic-size: auto 380px;
+}
+
+.animate-ping {
+	will-change: transform, opacity;
+}
+
+/* Central Timeline Photonic Power Spine Stream */
+@keyframes spineBeamFlow {
+	0% {
+		transform: translateY(-280px);
+		opacity: 0;
+	}
+	15% {
+		opacity: 1;
+	}
+	85% {
+		opacity: 1;
+	}
+	100% {
+		transform: translateY(120vh);
+		opacity: 0;
+	}
+}
+
+.spine-pulse-beam {
+	width: 100%;
+	height: 240px;
+	background: linear-gradient(
+		to bottom,
+		transparent 0%,
+		rgba(6, 182, 212, 0.4) 30%,
+		rgba(34, 211, 238, 0.95) 50%,
+		rgba(245, 158, 11, 0.9) 70%,
+		transparent 100%
+	);
+	filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.8));
+	animation: spineBeamFlow 3.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+	will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.spine-pulse-beam {
+		animation: none !important;
+		opacity: 0.3;
+	}
+}
+
+.flash-glow-cyan {
+	box-shadow: 0 0 30px -5px rgba(6, 182, 212, 0.3);
+}
+
+.flash-glow-amber {
+	box-shadow: 0 0 30px -5px rgba(245, 158, 11, 0.3);
+}
+
+/* Silicon Bit-Grid Substrate (Subtle 1-bit / 2-bit Dither Textures) */
+.dither-grid {
+	background-image: radial-gradient(rgba(6, 182, 212, 0.14) 1px, transparent 0);
+	background-size: 5px 5px;
+}
+
+.dither-grid-amber {
+	background-image: radial-gradient(rgba(245, 158, 11, 0.14) 1px, transparent 0);
+	background-size: 5px 5px;
+}
+
+.dither-grid-subtle {
+	background-image: radial-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 0);
+	background-size: 4px 4px;
+}
+
+/* Tensor blueprint bracket framing */
+.tensor-bracket {
+	position: relative;
+}
+.tensor-bracket::before {
+	content: '⌜';
+	position: absolute;
+	top: 5px;
+	left: 6px;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	font-size: 12px;
+	line-height: 1;
+	color: rgba(6, 182, 212, 0.45);
+	pointer-events: none;
+	user-select: none;
+}
+.tensor-bracket::after {
+	content: '⌟';
+	position: absolute;
+	bottom: 5px;
+	right: 6px;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	font-size: 12px;
+	line-height: 1;
+	color: rgba(6, 182, 212, 0.45);
+	pointer-events: none;
+	user-select: none;
+}
