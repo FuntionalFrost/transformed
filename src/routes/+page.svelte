@@ -20,6 +20,7 @@
 	import FimSimulator from '../lib/components/interactive/FimSimulator.svelte';
 	import MtpVisualizer from '../lib/components/interactive/MtpVisualizer.svelte';
 	import TensorTileBitboard from '../lib/components/interactive/TensorTileBitboard.svelte';
+	import { ATTENTION_BOTTLENECKS, SEA_PILLARS } from '../lib/data/progressiveArchitecture';
 
 	// Filters & State
 	let selectedYear = $state<number | 'all'>('all');
@@ -30,6 +31,32 @@
 	let activeModalMilestone = $state<Milestone | null>(null);
 	let isReactorSurging = $state(false);
 	let surgeTimeout: ReturnType<typeof setTimeout> | null = null;
+
+	// Progressive Architecture Disclosure State
+	let bottleneckViewMode = $state<'progressive' | 'telemetry'>('progressive');
+	let expandedBottleneckId = $state<'context' | 'io' | 'compute' | 'kv-cache' | null>(null);
+
+	let seaStackViewMode = $state<'hierarchy' | 'pipeline'>('hierarchy');
+	let activeSeaPillarId = $state<CategoryId>('architecture');
+
+	let activeSeaPillar = $derived(
+		SEA_PILLARS.find((p) => p.id === activeSeaPillarId) ?? SEA_PILLARS[0]
+	);
+
+	function getCategoryMilestoneCount(catId: CategoryId): number {
+		return TIMELINE_MILESTONES.filter((m) => m.category === catId).length;
+	}
+
+	function openSimulatorFromPillar(labId: typeof activeLabTab) {
+		viewMode = 'lab';
+		activeLabTab = labId;
+		setTimeout(() => {
+			const el = document.getElementById('simulator-lab');
+			if (el) {
+				el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			}
+		}, 40);
+	}
 
 	function triggerReactorSurge() {
 		if (surgeTimeout) clearTimeout(surgeTimeout);
@@ -731,225 +758,488 @@
 					</div>
 				</div>
 
-				<!-- 4. Lower Die Substrate: 4 Integrated Execution Blocks -->
-				<div
-					class="relative z-10 grid grid-cols-1 divide-y divide-slate-800/80 bg-slate-900/40 text-left sm:grid-cols-2 sm:divide-x sm:divide-y-0 md:grid-cols-4"
-				>
-					<!-- Block 0: Effective Context Window (Cyan Channel) -->
+				<!-- 4. Lower Die Substrate: The 4 Physical Attention Bottlenecks (Progressive Evolution) -->
+				<div class="relative z-10 border-t border-slate-800/80 bg-slate-950/90">
+					<!-- Progressive Explanation Control Bar -->
 					<div
-						class="p-4 transition-colors duration-300 hover:bg-slate-900/70 {isReactorSurging
-							? 'bg-cyan-950/20'
-							: ''}"
+						class="flex flex-col justify-between gap-2 px-3.5 py-2.5 font-mono text-[11px] sm:flex-row sm:items-center sm:px-5"
 					>
-						<div class="flex items-center justify-between">
-							<div class="font-mono text-[10px] font-bold tracking-wider text-cyan-400 uppercase">
-								Effective Context
-							</div>
-							<span class="h-1.5 w-1.5 rounded-full bg-cyan-400"></span>
-						</div>
-						<div class="mt-1 font-mono text-2xl font-black text-white">1M+ Tokens</div>
-						<div class="mt-1 text-[11px] leading-snug text-slate-400">
-							Up from 512 tokens (2017) · &gt;99.8% Needle-in-a-Haystack retrieval
-						</div>
-						<div class="mt-2.5 font-mono text-[9px] tracking-wider text-slate-500 uppercase">
-							RoPE + RingAttention
-						</div>
-					</div>
-
-					<!-- Block 1: Flash Memory IO (Amber Channel) -->
-					<div
-						class="p-4 transition-colors duration-300 hover:bg-slate-900/70 {isReactorSurging
-							? 'bg-amber-950/20'
-							: ''}"
-					>
-						<div class="flex items-center justify-between">
-							<div class="font-mono text-[10px] font-bold tracking-wider text-amber-400 uppercase">
-								HBM Memory Traffic
-							</div>
-							<span class="h-1.5 w-1.5 rounded-full bg-amber-400"></span>
-						</div>
-						<div class="mt-1 font-mono text-2xl font-black text-white">O(N) Linear IO</div>
-						<div class="mt-1 text-[11px] leading-snug text-slate-400">
-							Tiled SRAM eliminates intermediate O(N²) quadratic HBM writes
-						</div>
-						<div class="mt-2.5 font-mono text-[9px] tracking-wider text-slate-500 uppercase">
-							FlashAttention-1/2/3
-						</div>
-					</div>
-
-					<!-- Block 2: Tensor Core Efficiency (Emerald Channel) -->
-					<div
-						class="p-4 transition-colors duration-300 hover:bg-slate-900/70 {isReactorSurging
-							? 'bg-emerald-950/20'
-							: ''}"
-					>
-						<div class="flex items-center justify-between">
-							<div
-								class="font-mono text-[10px] font-bold tracking-wider text-emerald-400 uppercase"
+						<div class="flex items-center gap-2">
+							<span class="h-2 w-2 rounded-full bg-cyan-400"></span>
+							<span class="font-bold tracking-wider text-slate-200 uppercase">
+								The 4 Physical Attention Bottlenecks
+							</span>
+							<span class="hidden text-slate-500 md:inline"
+								>// 2017 Memory Wall ➔ 2026 Autonomous SEA</span
 							>
-								Tensor Core Efficiency
+						</div>
+
+						<!-- Toggle between Progressive Breakdown and Silicon Telemetry -->
+						<div class="flex items-center gap-2">
+							<span class="text-[10px] text-slate-400">Mode:</span>
+							<div
+								class="flex items-center rounded border border-slate-800 bg-slate-900/90 p-0.5 text-[10px]"
+							>
+								<button
+									type="button"
+									onclick={() => (bottleneckViewMode = 'progressive')}
+									class="cursor-pointer rounded px-2.5 py-0.5 transition-colors {bottleneckViewMode ===
+									'progressive'
+										? 'bg-cyan-600 font-bold text-white shadow-sm'
+										: 'text-slate-400 hover:text-slate-200'}"
+								>
+									Progressive Evolution
+								</button>
+								<button
+									type="button"
+									onclick={() => (bottleneckViewMode = 'telemetry')}
+									class="cursor-pointer rounded px-2.5 py-0.5 transition-colors {bottleneckViewMode ===
+									'telemetry'
+										? 'bg-cyan-600 font-bold text-white shadow-sm'
+										: 'text-slate-400 hover:text-slate-200'}"
+								>
+									Silicon Telemetry
+								</button>
 							</div>
-							<span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
-						</div>
-						<div class="mt-1 font-mono text-2xl font-black text-white">73% A100/H100</div>
-						<div class="mt-1 text-[11px] leading-snug text-slate-400">
-							Warp-specialized asynchronous TMA copy & ping-pong GEMM
-						</div>
-						<div class="mt-2.5 font-mono text-[9px] tracking-wider text-slate-500 uppercase">
-							FP8 / NVFP4 Tensor Cores
 						</div>
 					</div>
 
-					<!-- Block 3: KV Cache Compression (Violet Channel) -->
+					<!-- The 4 Execution Bottleneck Cards -->
 					<div
-						class="p-4 transition-colors duration-300 hover:bg-slate-900/70 {isReactorSurging
-							? 'bg-violet-950/20'
-							: ''}"
+						class="grid grid-cols-1 divide-y divide-slate-800/80 bg-slate-900/40 text-left sm:grid-cols-2 sm:divide-x sm:divide-y-0 md:grid-cols-4"
 					>
-						<div class="flex items-center justify-between">
-							<div class="font-mono text-[10px] font-bold tracking-wider text-violet-400 uppercase">
-								KV-Cache Latent VRAM
+						{#each ATTENTION_BOTTLENECKS as b (b.id)}
+							{@const isExpanded = expandedBottleneckId === b.id}
+							{@const dotBg =
+								b.color === 'cyan'
+									? 'bg-cyan-400'
+									: b.color === 'amber'
+										? 'bg-amber-400'
+										: b.color === 'emerald'
+											? 'bg-emerald-400'
+											: 'bg-violet-400'}
+							{@const titleColor =
+								b.color === 'cyan'
+									? 'text-cyan-400'
+									: b.color === 'amber'
+										? 'text-amber-400'
+										: b.color === 'emerald'
+											? 'text-emerald-400'
+											: 'text-violet-400'}
+
+							<div
+								class="flex flex-col justify-between p-4 transition-all duration-300 {isExpanded
+									? 'bg-slate-900/90 ring-1 ring-cyan-500/30'
+									: 'hover:bg-slate-900/70'} {isReactorSurging ? 'bg-slate-950/30' : ''}"
+							>
+								<div>
+									<div class="flex items-center justify-between">
+										<span
+											class="font-mono text-[10px] font-bold tracking-wider uppercase {titleColor}"
+										>
+											{b.title}
+										</span>
+										<span class="h-1.5 w-1.5 rounded-full {dotBg}"></span>
+									</div>
+
+									<div class="mt-1 flex items-baseline gap-2">
+										<div class="font-mono text-2xl font-black text-white">{b.stat2026}</div>
+										<span class="font-mono text-[10px] text-slate-500">vs {b.stat2017}</span>
+									</div>
+
+									{#if bottleneckViewMode === 'progressive'}
+										<!-- Progressive Problem -> Solution -> Agent Impact -->
+										<div class="mt-2.5 space-y-1.5 text-[11px] leading-snug">
+											<div class="text-slate-400">
+												<span class="font-semibold text-rose-400/90">2017 Bottleneck:</span>
+												{b.bottleneck2017}
+											</div>
+											<div class="text-slate-300">
+												<span class="font-semibold text-emerald-400/90">Breakthrough:</span>
+												{b.breakthrough}
+											</div>
+											<div class="text-cyan-200/90">
+												<span class="font-semibold text-cyan-300">Agent Impact:</span>
+												{b.seaImpact}
+											</div>
+										</div>
+									{:else}
+										<!-- Compact Silicon Telemetry Specs -->
+										<div class="mt-2 text-[11px] leading-snug text-slate-400">
+											{b.seaImpact}
+										</div>
+										<div
+											class="mt-2.5 font-mono text-[9px] tracking-wider text-slate-500 uppercase"
+										>
+											{b.technologies.join(' · ')}
+										</div>
+									{/if}
+								</div>
+
+								<!-- Card Bottom Actions & Inspector Toggle -->
+								<div
+									class="mt-3 flex items-center justify-between border-t border-slate-800/70 pt-2 font-mono text-[10px]"
+								>
+									<button
+										type="button"
+										onclick={() => (expandedBottleneckId = isExpanded ? null : b.id)}
+										class="cursor-pointer text-slate-400 transition-colors hover:text-cyan-300"
+									>
+										{isExpanded ? '▲ Hide Physics' : '▼ Deep Dive'}
+									</button>
+									<button
+										type="button"
+										onclick={() => openSimulatorFromPillar(b.labSimulatorId)}
+										class="cursor-pointer font-semibold {titleColor} hover:underline"
+									>
+										Simulator ⚡
+									</button>
+								</div>
 							</div>
-							<span class="h-1.5 w-1.5 rounded-full bg-violet-400"></span>
-						</div>
-						<div class="mt-1 font-mono text-2xl font-black text-white">-92% Footprint</div>
-						<div class="mt-1 text-[11px] leading-snug text-slate-400">
-							Low-rank joint key-value compression via latent vector c_t^KV ∈ ℝ^{512}
-						</div>
-						<div class="mt-2.5 font-mono text-[9px] tracking-wider text-slate-500 uppercase">
-							Multi-Head Latent Attn
-						</div>
+						{/each}
 					</div>
+
+					<!-- Expandable Physics & Silicon Deep Dive Drawer -->
+					{#if expandedBottleneckId}
+						{@const activeB = ATTENTION_BOTTLENECKS.find((b) => b.id === expandedBottleneckId)}
+						{#if activeB}
+							<div
+								class="border-t border-slate-800/90 bg-slate-950/95 p-4 font-mono text-xs sm:p-5"
+							>
+								<div
+									class="flex flex-col justify-between gap-2 border-b border-slate-800 pb-2 sm:flex-row sm:items-center"
+								>
+									<div class="flex items-center gap-2">
+										<span class="font-bold tracking-wider text-slate-200 uppercase">
+											Micro-Architectural Deep Dive: {activeB.title}
+										</span>
+										<span class="rounded bg-slate-800 px-2 py-0.5 text-[10px] text-cyan-300">
+											{activeB.channel}
+										</span>
+									</div>
+									<button
+										type="button"
+										onclick={() => (expandedBottleneckId = null)}
+										class="cursor-pointer text-[11px] text-slate-400 hover:text-white"
+									>
+										✕ Close
+									</button>
+								</div>
+
+								<p class="mt-2.5 font-sans text-[11px] leading-relaxed text-slate-300">
+									{activeB.deepDive}
+								</p>
+
+								<div
+									class="mt-3 flex flex-wrap items-center justify-between gap-3 border-t border-slate-800/80 pt-2.5"
+								>
+									<div class="flex flex-wrap items-center gap-1.5 text-[10px] text-slate-400">
+										<span class="text-slate-500 uppercase">Core Enablers:</span>
+										{#each activeB.technologies as tech (tech)}
+											<span
+												class="rounded border border-slate-800 bg-slate-900 px-1.5 py-0.5 text-slate-300"
+											>
+												{tech}
+											</span>
+										{/each}
+									</div>
+									<button
+										type="button"
+										onclick={() => openSimulatorFromPillar(activeB.labSimulatorId)}
+										class="cursor-pointer rounded bg-cyan-600 px-3 py-1 text-[11px] font-bold text-white shadow-sm transition-colors hover:bg-cyan-500"
+									>
+										Launch {activeB.labSimulatorName} in Lab →
+									</button>
+								</div>
+							</div>
+						{/if}
+					{/if}
 				</div>
 			</div>
 		</section>
 
 		<!-- 2026 Full Stack Architecture Map & Timeline Filters (Visible in Timeline & Grid Views) -->
 		{#if viewMode !== 'lab'}
-			<!-- 2026 Full Stack Architecture Map (Clickable to Filter) -->
+			<!-- 2026 Full Stack Architecture Map (Progressive Hierarchy & Runtime Flow) -->
 			<section
-				class="relative mb-10 overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/50 p-5 backdrop-blur-sm sm:p-6"
+				class="relative mb-10 overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/50 p-4 backdrop-blur-sm sm:p-6"
 			>
 				<!-- Subtle Silicon Wafer Dither Pattern -->
 				<div
 					class="dither-grid-subtle pointer-events-none absolute inset-0 opacity-35"
 					aria-hidden="true"
 				></div>
-				<div class="mb-3 flex items-center justify-between border-b border-slate-800/80 pb-3">
-					<h2
-						class="flex items-center gap-2 text-sm font-bold tracking-wider text-slate-200 uppercase"
+
+				<!-- Header & Progressive Explanation Preamble -->
+				<div class="relative z-10 mb-4 border-b border-slate-800/80 pb-4">
+					<div class="flex flex-col justify-between gap-3 md:flex-row md:items-center">
+						<div>
+							<div class="flex flex-wrap items-center gap-2">
+								<span class="h-2.5 w-2.5 rounded-full bg-cyan-400"></span>
+								<h2 class="text-sm font-bold tracking-wider text-slate-100 uppercase sm:text-base">
+									The 5-Pillar Autonomous SEA Stack
+								</h2>
+								<span
+									class="rounded border border-cyan-800/70 bg-cyan-950/70 px-2 py-0.5 font-mono text-[10px] font-bold text-cyan-300"
+								>
+									SEA = Software Engineering Agent
+								</span>
+							</div>
+							<p class="mt-1 text-xs text-slate-400">
+								Progressive architectural hierarchy: how mathematical attention scales from silicon
+								to autonomous coding loops.
+							</p>
+						</div>
+
+						<!-- Mode Selector: Hierarchy vs Pipeline -->
+						<div
+							class="flex items-center gap-1 rounded-lg border border-slate-800 bg-slate-950/90 p-1 font-mono text-[11px]"
+						>
+							<button
+								type="button"
+								onclick={() => (seaStackViewMode = 'hierarchy')}
+								class="flex cursor-pointer items-center gap-1.5 rounded-md px-3 py-1 transition-colors {seaStackViewMode ===
+								'hierarchy'
+									? 'bg-cyan-600 font-bold text-white shadow-sm'
+									: 'text-slate-400 hover:text-white'}"
+							>
+								<span>Foundation Hierarchy (1 ➔ 5)</span>
+							</button>
+							<button
+								type="button"
+								onclick={() => (seaStackViewMode = 'pipeline')}
+								class="flex cursor-pointer items-center gap-1.5 rounded-md px-3 py-1 transition-colors {seaStackViewMode ===
+								'pipeline'
+									? 'bg-cyan-600 font-bold text-white shadow-sm'
+									: 'text-slate-400 hover:text-white'}"
+							>
+								<span>Runtime Execution Flow ⚡</span>
+							</button>
+						</div>
+					</div>
+
+					<!-- Progressive Conceptual Primer Box -->
+					<div
+						class="mt-3 rounded-lg border border-slate-800/70 bg-slate-950/60 p-3 text-xs leading-relaxed text-slate-300"
 					>
-						<span class="h-2 w-2 rounded-full bg-cyan-400"></span>
-						The 5-Pillar Autonomous SEA Stack (Click a layer to filter)
-					</h2>
-					<span class="hidden font-mono text-xs text-slate-400 sm:inline"
-						>Interactive Layer Selector</span
-					>
+						<span class="font-bold text-cyan-300">Progressive Dependency Principle:</span>
+						An autonomous software engineering agent is not a single monolith. It is a vertically integrated
+						5-layer hierarchy where each layer solves a specific operational bottleneck. Click any layer
+						below to inspect its role, input/output contracts, and filter corresponding timeline breakthroughs.
+					</div>
 				</div>
 
-				<div class="grid grid-cols-1 gap-3 text-xs sm:grid-cols-2 md:grid-cols-5">
-					<button
-						type="button"
-						onclick={() =>
-							(selectedCategory = selectedCategory === 'architecture' ? 'all' : 'architecture')}
-						class="rounded-lg border p-3.5 text-left transition-all {selectedCategory ===
-						'architecture'
-							? 'border-cyan-400 bg-cyan-950/40 shadow-lg shadow-cyan-500/20'
-							: 'border-cyan-500/30 bg-cyan-950/20 hover:border-cyan-400'}"
-					>
-						<div class="mb-1 flex items-center justify-between font-mono font-bold text-cyan-300">
-							<span>1. Context Layer</span>
-							{#if selectedCategory === 'architecture'}<span class="text-[10px] text-cyan-400"
-									>Active</span
-								>{/if}
-						</div>
-						<p class="text-[11px] leading-relaxed text-slate-300">
-							Transformers (2017), RoPE (2021), Multi-Head Latent Attention (2024), and Multi-Token
-							Lookahead (MTP). Foundation for high-fidelity code AST ingestion.
-						</p>
-					</button>
+				<!-- Mode 1: Hierarchy View (5 Pillar Cards) -->
+				{#if seaStackViewMode === 'hierarchy'}
+					<div class="relative z-10 grid grid-cols-1 gap-3 text-xs sm:grid-cols-2 md:grid-cols-5">
+						{#each SEA_PILLARS as pillar (pillar.id)}
+							{@const isSelectedFilter = selectedCategory === pillar.id}
+							{@const isInspected = activeSeaPillarId === pillar.id}
+							{@const pillarBorder =
+								pillar.color === 'cyan'
+									? isInspected
+										? 'border-cyan-400 ring-2 ring-cyan-500/30 bg-cyan-950/40'
+										: 'border-cyan-500/30 bg-cyan-950/20 hover:border-cyan-400'
+									: pillar.color === 'emerald'
+										? isInspected
+											? 'border-emerald-400 ring-2 ring-emerald-500/30 bg-emerald-950/40'
+											: 'border-emerald-500/30 bg-emerald-950/20 hover:border-emerald-400'
+										: pillar.color === 'amber'
+											? isInspected
+												? 'border-amber-400 ring-2 ring-amber-500/30 bg-amber-950/40'
+												: 'border-amber-500/30 bg-amber-950/20 hover:border-amber-400'
+											: pillar.color === 'violet'
+												? isInspected
+													? 'border-violet-400 ring-2 ring-violet-500/30 bg-violet-950/40'
+													: 'border-violet-500/30 bg-violet-950/20 hover:border-violet-400'
+												: isInspected
+													? 'border-rose-400 ring-2 ring-rose-500/30 bg-rose-950/40'
+													: 'border-rose-500/30 bg-rose-950/20 hover:border-rose-400'}
+							{@const titleColor =
+								pillar.color === 'cyan'
+									? 'text-cyan-300'
+									: pillar.color === 'emerald'
+										? 'text-emerald-300'
+										: pillar.color === 'amber'
+											? 'text-amber-300'
+											: pillar.color === 'violet'
+												? 'text-violet-300'
+												: 'text-rose-300'}
 
-					<button
-						type="button"
-						onclick={() =>
-							(selectedCategory = selectedCategory === 'hardware' ? 'all' : 'hardware')}
-						class="rounded-lg border p-3.5 text-left transition-all {selectedCategory === 'hardware'
-							? 'border-emerald-400 bg-emerald-950/40 shadow-lg shadow-emerald-500/20'
-							: 'border-emerald-500/30 bg-emerald-950/20 hover:border-emerald-400'}"
+							<button
+								type="button"
+								onclick={() => {
+									activeSeaPillarId = pillar.id;
+									selectedCategory = selectedCategory === pillar.id ? 'all' : pillar.id;
+								}}
+								class="cursor-pointer rounded-lg border p-3.5 text-left transition-all {pillarBorder}"
+							>
+								<div
+									class="mb-1 flex items-center justify-between font-mono font-bold {titleColor}"
+								>
+									<span>{pillar.layerName}</span>
+									{#if isSelectedFilter}
+										<span class="rounded bg-slate-900/80 px-1.5 py-0.5 text-[9px] text-cyan-300"
+											>Active</span
+										>
+									{/if}
+								</div>
+								<div class="mb-1 font-mono text-[10px] text-slate-400">{pillar.role}</div>
+								<p class="text-[11px] leading-relaxed text-slate-300">
+									{pillar.solution2026}
+								</p>
+								<div class="mt-2 text-[10px] text-slate-500">
+									Click to inspect & filter ({getCategoryMilestoneCount(pillar.id)} papers)
+								</div>
+							</button>
+						{/each}
+					</div>
+				{:else}
+					<!-- Mode 2: Runtime Execution Flow Pipeline -->
+					<div class="relative z-10 space-y-3">
+						<div class="grid grid-cols-1 gap-2.5 font-mono text-xs sm:grid-cols-5">
+							{#each SEA_PILLARS as step (step.pillarNumber)}
+								{@const isActiveStep = activeSeaPillarId === step.id}
+								<button
+									type="button"
+									onclick={() => (activeSeaPillarId = step.id)}
+									class="flex cursor-pointer flex-col justify-between rounded-lg border p-3 text-left transition-all {isActiveStep
+										? 'border-cyan-400 bg-cyan-950/50 shadow-md ring-1 ring-cyan-400/50'
+										: 'border-slate-800 bg-slate-950/40 hover:border-slate-700'}"
+								>
+									<div>
+										<div
+											class="flex items-center justify-between text-[10px] font-bold text-slate-400 uppercase"
+										>
+											<span>{step.runtimeStep.split(':')[0]}</span>
+											<span
+												class="h-1.5 w-1.5 rounded-full {isActiveStep
+													? 'animate-ping bg-cyan-400'
+													: 'bg-slate-600'}"
+											></span>
+										</div>
+										<div class="mt-1 text-[11px] font-bold text-white">
+											{step.runtimeStep.split(':')[1]?.trim() ?? step.runtimeStep}
+										</div>
+									</div>
+									<div class="mt-2 line-clamp-2 text-[10px] text-slate-400">
+										{step.runtimeAction}
+									</div>
+								</button>
+							{/each}
+						</div>
+					</div>
+				{/if}
+
+				<!-- Progressive Layer Deep Dive & Hand-Off Drawer -->
+				<div
+					class="relative z-10 mt-4 rounded-xl border border-slate-800/90 bg-slate-950/80 p-4 sm:p-5"
+				>
+					<div
+						class="flex flex-col justify-between gap-3 border-b border-slate-800 pb-3 sm:flex-row sm:items-center"
 					>
-						<div
-							class="mb-1 flex items-center justify-between font-mono font-bold text-emerald-300"
+						<div>
+							<div class="flex flex-wrap items-center gap-2">
+								<span class="font-mono text-xs font-bold text-cyan-400 uppercase">
+									LAYER {activeSeaPillar.pillarNumber} DEEP DIVE
+								</span>
+								<span class="text-slate-600">|</span>
+								<h3 class="text-sm font-bold text-white">
+									{activeSeaPillar.layerName}: {activeSeaPillar.subtitle}
+								</h3>
+								<span class="rounded bg-slate-800 px-2 py-0.5 font-mono text-[10px] text-slate-300">
+									{activeSeaPillar.role}
+								</span>
+							</div>
+						</div>
+
+						<!-- Direct Action Buttons -->
+						<div class="flex flex-wrap items-center gap-2 font-mono text-xs">
+							<button
+								type="button"
+								onclick={() =>
+									(selectedCategory =
+										selectedCategory === activeSeaPillar.id ? 'all' : activeSeaPillar.id)}
+								class="cursor-pointer rounded border px-2.5 py-1 text-[11px] transition-colors {selectedCategory ===
+								activeSeaPillar.id
+									? 'border-cyan-400 bg-cyan-600 font-bold text-white'
+									: 'border-slate-700 bg-slate-800 text-slate-300 hover:text-white'}"
+							>
+								{selectedCategory === activeSeaPillar.id
+									? '✓ Filtering Timeline'
+									: `Filter Timeline (${getCategoryMilestoneCount(activeSeaPillar.id)})`}
+							</button>
+							<button
+								type="button"
+								onclick={() => openSimulatorFromPillar(activeSeaPillar.labSimulatorId)}
+								class="cursor-pointer rounded bg-cyan-600 px-2.5 py-1 text-[11px] font-bold text-white shadow-sm transition-colors hover:bg-cyan-500"
+							>
+								Simulator: {activeSeaPillar.labSimulatorName} ⚡
+							</button>
+						</div>
+					</div>
+
+					<div class="mt-3.5 grid grid-cols-1 gap-4 text-xs md:grid-cols-2">
+						<!-- Left: Problem & Solution -->
+						<div class="space-y-2.5 rounded-lg border border-slate-800/80 bg-slate-900/40 p-3.5">
+							<div>
+								<div class="font-mono text-[10px] font-bold tracking-wider text-rose-400 uppercase">
+									The Core Challenge (Why Standard NLP Failed)
+								</div>
+								<p class="mt-1 leading-relaxed text-slate-300">
+									{activeSeaPillar.challenge2017}
+								</p>
+							</div>
+							<div class="border-t border-slate-800/80 pt-2">
+								<div
+									class="font-mono text-[10px] font-bold tracking-wider text-emerald-400 uppercase"
+								>
+									The 2026 Engineering Solution
+								</div>
+								<p class="mt-1 leading-relaxed text-slate-300">
+									{activeSeaPillar.solution2026}
+								</p>
+							</div>
+						</div>
+
+						<!-- Right: Progressive Hand-Off & Runtime Contract -->
+						<div class="space-y-2.5 rounded-lg border border-slate-800/80 bg-slate-900/40 p-3.5">
+							<div>
+								<div class="font-mono text-[10px] font-bold tracking-wider text-cyan-400 uppercase">
+									Progressive Hand-off to Layer {activeSeaPillar.pillarNumber === 5
+										? '1 (Cycle)'
+										: activeSeaPillar.pillarNumber + 1}
+								</div>
+								<p class="mt-1 leading-relaxed text-slate-300">
+									{activeSeaPillar.progressiveHandOff}
+								</p>
+							</div>
+							<div class="space-y-1 border-t border-slate-800/80 pt-2 font-mono text-[11px]">
+								<div class="flex items-start gap-2">
+									<span class="shrink-0 text-slate-500">Input Contract:</span>
+									<span class="text-slate-300">{activeSeaPillar.inputArtifact}</span>
+								</div>
+								<div class="flex items-start gap-2">
+									<span class="shrink-0 text-slate-500">Output Contract:</span>
+									<span class="text-cyan-300">{activeSeaPillar.outputArtifact}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Key Milestones Row -->
+					<div
+						class="mt-3.5 flex flex-wrap items-center gap-2 border-t border-slate-800/80 pt-3 text-[11px]"
+					>
+						<span class="font-mono text-[10px] font-bold text-slate-400 uppercase"
+							>Seminal Milestones:</span
 						>
-							<span>2. Hardware Engine</span>
-							{#if selectedCategory === 'hardware'}<span class="text-[10px] text-emerald-400"
-									>Active</span
-								>{/if}
-						</div>
-						<p class="text-[11px] leading-relaxed text-slate-300">
-							Tensor Cores (Volta to Blackwell B200), NVFP4 microscaling, AMD RDNA 4 WMMA,
-							FlashAttention 1, 2 & 3 TMA async tiling, and TensorRT-LLM continuous batching.
-						</p>
-					</button>
-
-					<button
-						type="button"
-						onclick={() => (selectedCategory = selectedCategory === 'scaling' ? 'all' : 'scaling')}
-						class="rounded-lg border p-3.5 text-left transition-all {selectedCategory === 'scaling'
-							? 'border-amber-400 bg-amber-950/40 shadow-lg shadow-amber-500/20'
-							: 'border-amber-500/30 bg-amber-950/20 hover:border-amber-400'}"
-					>
-						<div class="mb-1 flex items-center justify-between font-mono font-bold text-amber-300">
-							<span>3. Scaling & Search</span>
-							{#if selectedCategory === 'scaling'}<span class="text-[10px] text-amber-400"
-									>Active</span
-								>{/if}
-						</div>
-						<p class="text-[11px] leading-relaxed text-slate-300">
-							Chinchilla compute optimality (6ND) and Test-Time Compute Scaling laws. MCTS with UCT
-							bounds and Process Reward Models (PRMs).
-						</p>
-					</button>
-
-					<button
-						type="button"
-						onclick={() =>
-							(selectedCategory = selectedCategory === 'training' ? 'all' : 'training')}
-						class="rounded-lg border p-3.5 text-left transition-all {selectedCategory === 'training'
-							? 'border-violet-400 bg-violet-950/40 shadow-lg shadow-violet-500/20'
-							: 'border-violet-500/30 bg-violet-950/20 hover:border-violet-400'}"
-					>
-						<div class="mb-1 flex items-center justify-between font-mono font-bold text-violet-300">
-							<span>4. Training & RL</span>
-							{#if selectedCategory === 'training'}<span class="text-[10px] text-violet-400"
-									>Active</span
-								>{/if}
-						</div>
-						<p class="text-[11px] leading-relaxed text-slate-300">
-							Causal LM on code, pass@k test suites, Fill-in-the-Middle (FIM), and critic-free Group
-							Relative Policy Optimization (GRPO).
-						</p>
-					</button>
-
-					<button
-						type="button"
-						onclick={() =>
-							(selectedCategory = selectedCategory === 'agent-loop' ? 'all' : 'agent-loop')}
-						class="rounded-lg border p-3.5 text-left transition-all {selectedCategory ===
-						'agent-loop'
-							? 'border-rose-400 bg-rose-950/40 shadow-lg shadow-rose-500/20'
-							: 'border-rose-500/30 bg-rose-950/20 hover:border-rose-400'}"
-					>
-						<div class="mb-1 flex items-center justify-between font-mono font-bold text-rose-300">
-							<span>5. Agent Loop</span>
-							{#if selectedCategory === 'agent-loop'}<span class="text-[10px] text-rose-400"
-									>Active</span
-								>{/if}
-						</div>
-						<p class="text-[11px] leading-relaxed text-slate-300">
-							The ReAct loop, deterministic surgical search-and-replace, tree-sitter AST maps, and
-							Firecracker micro-VM ephemeral sandboxes.
-						</p>
-					</button>
+						{#each activeSeaPillar.keyMilestones as paper (paper)}
+							<span class="rounded border border-slate-800 bg-slate-900 px-2 py-0.5 text-slate-300">
+								{paper}
+							</span>
+						{/each}
+					</div>
 				</div>
 			</section>
 
