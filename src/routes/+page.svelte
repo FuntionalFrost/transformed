@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Kbd } from 'yaxa-svelte';
 	import { TIMELINE_MILESTONES, CATEGORIES, getAttentionHighlight } from '../lib/data/timeline';
 	import type { CategoryId, CategoryInfo, Milestone } from '../lib/types';
 	import MilestoneCard from '../lib/components/MilestoneCard.svelte';
@@ -232,25 +231,25 @@
 	<!-- Attention & FlashAttention Memory Flow Background FX -->
 	<div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
 		<div
-			class="absolute -top-40 left-1/2 h-[550px] w-[1100px] -translate-x-1/2 bg-gradient-to-b from-cyan-500/15 via-amber-500/10 to-transparent opacity-80 blur-3xl"
+			class="absolute -top-40 left-1/2 h-137.5 w-275 -translate-x-1/2 bg-linear-to-b from-cyan-500/15 via-amber-500/10 to-transparent opacity-80 blur-3xl"
 		></div>
-		<div class="absolute top-[400px] -left-48 h-[650px] w-[650px] bg-cyan-500/10 blur-3xl"></div>
-		<div class="absolute top-[800px] -right-48 h-[650px] w-[650px] bg-amber-500/10 blur-3xl"></div>
-		<div class="absolute top-[1400px] left-1/3 h-[500px] w-[500px] bg-violet-500/8 blur-3xl"></div>
+		<div class="absolute top-100 -left-48 h-162.5 w-162.5 bg-cyan-500/10 blur-3xl"></div>
+		<div class="absolute top-200 -right-48 h-162.5 w-162.5 bg-amber-500/10 blur-3xl"></div>
+		<div class="absolute top-350 left-1/3 h-125 w-125 bg-violet-500/8 blur-3xl"></div>
 	</div>
 
 	<!-- Navigation Bar -->
 	<header class="sticky top-0 z-40 border-b border-slate-800/80 bg-slate-950/85 backdrop-blur-md">
 		<!-- Optical Bus Photonic Gradient Edge -->
 		<div
-			class="pointer-events-none absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"
+			class="pointer-events-none absolute inset-x-0 -bottom-px h-px bg-linear-to-r from-transparent via-cyan-500/50 to-transparent"
 		></div>
 		<div
 			class="mx-auto flex h-14 max-w-7xl items-center justify-between gap-2 px-3 sm:h-16 sm:gap-4 sm:px-6"
 		>
 			<div class="flex items-center gap-2 sm:gap-3">
 				<div
-					class="group relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-cyan-500/40 bg-gradient-to-br from-slate-900 via-slate-950 to-cyan-950/40 shadow-[0_0_15px_rgba(6,182,212,0.2)] ring-1 ring-cyan-400/20 transition-all duration-300 hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(6,182,212,0.35)] sm:h-9 sm:w-9"
+					class="group relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-cyan-500/40 bg-linear-to-br from-slate-900 via-slate-950 to-cyan-950/40 shadow-[0_0_15px_rgba(6,182,212,0.2)] ring-1 ring-cyan-400/20 transition-all duration-300 hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(6,182,212,0.35)] sm:h-9 sm:w-9"
 				>
 					<!-- Micro-chip corner fiducials -->
 					<div class="pointer-events-none absolute inset-0 opacity-40">
@@ -470,7 +469,7 @@
 		<section class="relative mx-auto mb-12 max-w-5xl text-center">
 			<!-- Silicon Die Backplane & Radial Photonic Core Glow -->
 			<div
-				class="pointer-events-none absolute -top-16 left-1/2 -z-10 h-[500px] w-full max-w-4xl -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.14)_0%,rgba(245,158,11,0.06)_45%,transparent_75%)] blur-3xl"
+				class="pointer-events-none absolute -top-16 left-1/2 -z-10 h-125 w-full max-w-4xl -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.14)_0%,rgba(245,158,11,0.06)_45%,transparent_75%)] blur-3xl"
 			></div>
 
 			<!-- Interactive Research Lineage & Conference Citation Chips -->
@@ -536,7 +535,7 @@
 			>
 				The Architecture of <br class="hidden sm:inline" />
 				<span
-					class="bg-gradient-to-r from-cyan-400 via-amber-300 to-violet-400 bg-clip-text text-transparent"
+					class="bg-linear-to-r from-cyan-400 via-amber-300 to-violet-400 bg-clip-text text-transparent"
 				>
 					Attention
 				</span>
@@ -563,7 +562,7 @@
 					aria-hidden="true"
 				></div>
 				<div
-					class="pointer-events-none absolute -inset-20 rounded-full bg-gradient-to-r from-cyan-500/8 via-amber-500/8 to-transparent blur-3xl transition-opacity duration-500 {isReactorSurging
+					class="pointer-events-none absolute -inset-20 rounded-full bg-linear-to-r from-cyan-500/8 via-amber-500/8 to-transparent blur-3xl transition-opacity duration-500 {isReactorSurging
 						? 'opacity-100'
 						: 'opacity-30'}"
 					aria-hidden="true"
@@ -751,7 +750,7 @@
 					<!-- Animated Photonic Dataflow Laser Beam across the Crossbar -->
 					<div class="relative h-1 w-full overflow-hidden bg-slate-900" aria-hidden="true">
 						<div
-							class="h-full w-full bg-gradient-to-r from-cyan-500 via-amber-400 to-violet-500 {isReactorSurging
+							class="h-full w-full bg-linear-to-r from-cyan-500 via-amber-400 to-violet-500 {isReactorSurging
 								? 'animate-pulse opacity-100 duration-300'
 								: 'opacity-40'}"
 						></div>
@@ -1246,7 +1245,7 @@
 			<!-- Interactive Controls: Filter & Search Bar Floating Dock -->
 			<section
 				id="timeline-section"
-				class="sticky top-[60px] z-30 mb-6 [transform:translateZ(0)] scroll-mt-24 rounded-xl border border-slate-800/90 bg-slate-950/95 p-2.5 px-3 shadow-[0_16px_40px_rgba(0,0,0,0.85)] ring-1 ring-slate-800/60 backdrop-blur-md sm:top-[76px] sm:mb-8 sm:rounded-2xl sm:p-3.5 sm:px-5"
+				class="sticky top-15 z-30 mb-6 transform-[translateZ(0)] scroll-mt-24 rounded-xl border border-slate-800/90 bg-slate-950/95 p-2.5 px-3 shadow-[0_16px_40px_rgba(0,0,0,0.85)] ring-1 ring-slate-800/60 backdrop-blur-md sm:top-19 sm:mb-8 sm:rounded-2xl sm:p-3.5 sm:px-5"
 			>
 				<!-- Timeline Year Scrubber -->
 				<div class="scrollbar-none flex items-center gap-2 overflow-x-auto pb-2">
@@ -1308,7 +1307,7 @@
 						{/each}
 					</div>
 
-					<!-- Search Input with Yaxa Kbd Shortcut Indicator -->
+					<!-- Search Input with Keyboard Shortcut Indicator -->
 					<div class="relative w-full sm:w-72">
 						<label for="search-input" class="sr-only">Search equations, authors, topics</label>
 						<input
@@ -1329,7 +1328,10 @@
 							</button>
 						{:else}
 							<div class="pointer-events-none absolute top-1/2 right-2.5 -translate-y-1/2">
-								<Kbd value="/" size="xs" />
+								<kbd
+									class="inline-flex h-4 min-w-4 items-center justify-center rounded border border-slate-700 bg-slate-800 px-1 font-mono text-[10px] font-medium text-slate-400 select-none"
+									>/</kbd
+								>
 							</div>
 						{/if}
 					</div>
@@ -1522,7 +1524,7 @@
 							onclick={() => (activeLabTab = 'neuro')}
 							class="flex items-center gap-1.5 rounded px-2.5 py-1 transition-colors {activeLabTab ===
 							'neuro'
-								? 'bg-gradient-to-r from-amber-500 to-cyan-500 font-bold text-slate-950 shadow-md shadow-amber-500/20'
+								? 'bg-linear-to-r from-amber-500 to-cyan-500 font-bold text-slate-950 shadow-md shadow-amber-500/20'
 								: 'border border-amber-500/30 bg-slate-800 text-amber-300 hover:text-white'}"
 						>
 							<span>🧠</span>
@@ -1577,7 +1579,7 @@
 			<section class="relative">
 				<!-- Timeline Vertical Spine (Central Attention Powerline Conduit) -->
 				<div
-					class="absolute top-4 bottom-4 left-4 w-0.5 -translate-x-1/2 bg-gradient-to-b from-cyan-500 via-amber-500 to-emerald-500 opacity-30 sm:left-1/2"
+					class="absolute top-4 bottom-4 left-4 w-0.5 -translate-x-1/2 bg-linear-to-b from-cyan-500 via-amber-500 to-emerald-500 opacity-30 sm:left-1/2"
 				></div>
 
 				<!-- Photonic Pulse Stream: Power flowing continuously down the central spine -->
@@ -1618,7 +1620,7 @@
 							{#if attentionType === 'flash-attention'}
 								<!-- Radiant FlashAttention Spine Node -->
 								<div
-									class="absolute top-5 left-4 z-20 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border-2 border-amber-300 bg-gradient-to-br from-amber-400 via-orange-500 to-amber-600 shadow-xl ring-4 shadow-amber-500/80 ring-amber-400/40 sm:left-1/2"
+									class="absolute top-5 left-4 z-20 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border-2 border-amber-300 bg-linear-to-br from-amber-400 via-orange-500 to-amber-600 shadow-xl ring-4 shadow-amber-500/80 ring-amber-400/40 sm:left-1/2"
 									title="FlashAttention Engine Breakthrough"
 								>
 									<span class="animate-pulse text-xs font-black text-slate-950">⚡</span>
@@ -1629,7 +1631,7 @@
 							{:else if attentionType === 'attention-core'}
 								<!-- Radiant Attention Core Spine Node -->
 								<div
-									class="absolute top-5 left-4 z-20 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border-2 border-cyan-300 bg-gradient-to-br from-cyan-400 via-sky-500 to-cyan-600 shadow-xl ring-4 shadow-cyan-500/80 ring-cyan-400/40 sm:left-1/2"
+									class="absolute top-5 left-4 z-20 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border-2 border-cyan-300 bg-linear-to-br from-cyan-400 via-sky-500 to-cyan-600 shadow-xl ring-4 shadow-cyan-500/80 ring-cyan-400/40 sm:left-1/2"
 									title="Attention Architecture Breakthrough"
 								>
 									<span class="animate-pulse text-xs font-black text-slate-950">⚡</span>
@@ -1651,15 +1653,15 @@
 								class="absolute top-9 hidden h-0.5 -translate-y-1/2 sm:block {attentionType ===
 								'flash-attention'
 									? isEven
-										? 'left-[calc(50%-2rem)] w-8 bg-gradient-to-r from-transparent via-amber-400 to-amber-500 shadow-sm shadow-amber-400'
-										: 'left-1/2 w-8 bg-gradient-to-r from-amber-500 via-amber-400 to-transparent shadow-sm shadow-amber-400'
+										? 'left-[calc(50%-2rem)] w-8 bg-linear-to-r from-transparent via-amber-400 to-amber-500 shadow-sm shadow-amber-400'
+										: 'left-1/2 w-8 bg-linear-to-r from-amber-500 via-amber-400 to-transparent shadow-sm shadow-amber-400'
 									: attentionType === 'attention-core'
 										? isEven
-											? 'left-[calc(50%-2rem)] w-8 bg-gradient-to-r from-transparent via-cyan-400 to-cyan-500 shadow-sm shadow-cyan-400'
-											: 'left-1/2 w-8 bg-gradient-to-r from-cyan-500 via-cyan-400 to-transparent shadow-sm shadow-cyan-400'
+											? 'left-[calc(50%-2rem)] w-8 bg-linear-to-r from-transparent via-cyan-400 to-cyan-500 shadow-sm shadow-cyan-400'
+											: 'left-1/2 w-8 bg-linear-to-r from-cyan-500 via-cyan-400 to-transparent shadow-sm shadow-cyan-400'
 										: isEven
-											? 'left-[calc(50%-2rem)] w-8 bg-gradient-to-r from-transparent to-cyan-500/70'
-											: 'left-1/2 w-8 bg-gradient-to-r from-cyan-500/70 to-transparent'}"
+											? 'left-[calc(50%-2rem)] w-8 bg-linear-to-r from-transparent to-cyan-500/70'
+											: 'left-1/2 w-8 bg-linear-to-r from-cyan-500/70 to-transparent'}"
 							></div>
 
 							<!-- Horizontal Connector Stem (Mobile only) -->

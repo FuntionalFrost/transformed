@@ -60,6 +60,6 @@
 	"dependencies": {
 		"@lucide/svelte": "^1.66.0",
 		"katex": "^0.19.1",
-		"yaxa-svelte": "^2.6.0"
+		"yaxa-svelte": "^2.8.1"
 	}
 }
