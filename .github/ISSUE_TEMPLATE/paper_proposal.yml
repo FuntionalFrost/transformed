@@ -1,0 +1,61 @@
+name: Paper or Milestone Proposal
+description: Propose a seminal Attention, Transformer, or SEA architecture paper to add to the archive
+labels: ['milestone-proposal']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We welcome additions to the Attention Archive! Submissions should represent significant theoretical, architectural, or empirical breakthroughs.
+  - type: input
+    id: paper_title
+    attributes:
+      label: Paper / Breakthrough Title
+      description: Title of the seminal research paper or hardware release.
+      placeholder: 'E.g., FlashAttention-3: Fast and Accurate Attention with Asynchrony...'
+    validations:
+      required: true
+  - type: input
+    id: authors_year
+    attributes:
+      label: Authors & Year
+      description: Lead authors and publication year (2017–2026).
+      placeholder: E.g., Shah, Dao et al. (2024)
+    validations:
+      required: true
+  - type: input
+    id: citation_url
+    attributes:
+      label: arXiv / Proceedings URL
+      description: Link to arXiv, NeurIPS, ICLR, ASPLOS, or official technical report.
+      placeholder: https://arxiv.org/abs/...
+    validations:
+      required: true
+  - type: dropdown
+    id: pillar_category
+    attributes:
+      label: 5-Pillar SEA Stack Category
+      description: Which architectural layer does this milestone primarily belong to?
+      options:
+        - Layer 1: Architecture & Attention Foundations
+        - Layer 2: Hardware Acceleration & GPU Kernels
+        - Layer 3: Empirical Scaling & Reasoning Compute
+        - Layer 4: Alignment, RL & Process Verification
+        - Layer 5: Autonomous Agent Control Loops
+    validations:
+      required: true
+  - type: textarea
+    id: key_equations
+    attributes:
+      label: Canonical Mathematical Formula (LaTeX)
+      description: The core equation or operator definition representing the breakthrough.
+      placeholder: \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+    validations:
+      required: true
+  - type: textarea
+    id: breakthrough_impact
+    attributes:
+      label: Architectural Impact
+      description: What bottleneck did this milestone resolve, and how did it advance modern autonomous LLM coding agents?
+      placeholder: Eliminates intermediate HBM materialization by tiling SRAM...
+    validations:
+      required: true

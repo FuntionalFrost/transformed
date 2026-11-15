@@ -4,6 +4,15 @@
 	"version": "1.0.0",
 	"license": "MIT",
 	"private": true,
+	"author": "FuntionalFrost <devfrost@protonmail.com>",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/FuntionalFrost/transformed.git"
+	},
+	"bugs": {
+		"url": "https://github.com/FuntionalFrost/transformed/issues"
+	},
+	"homepage": "https://attentionarchive.pages.dev",
 	"type": "module",
 	"keywords": [
 		"attention",
