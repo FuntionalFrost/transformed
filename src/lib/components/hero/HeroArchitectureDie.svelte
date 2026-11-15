@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { smoothSlide, Sparkline } from 'yaxa-svelte';
+	import { smoothSlide } from 'yaxa-svelte';
 	import KatexMath from '../KatexMath.svelte';
 	import TensorTileBitboard from '../interactive/TensorTileBitboard.svelte';
 	import { ATTENTION_BOTTLENECKS } from '../../data/progressiveArchitecture';
@@ -460,22 +460,9 @@
 								<span class="h-1.5 w-1.5 rounded-full {dotBg}"></span>
 							</div>
 
-							<div class="mt-1 flex items-baseline justify-between gap-2">
-								<div class="flex items-baseline gap-2">
-									<div class="font-mono text-2xl font-black text-white">{b.stat2026}</div>
-									<span class="font-mono text-[10px] text-slate-500">vs {b.stat2017}</span>
-								</div>
-								<div class="shrink-0 opacity-80 transition-opacity hover:opacity-100">
-									<Sparkline
-										data={b.sparklineData}
-										color={b.sparklineColor}
-										width={68}
-										height={24}
-										strokeWidth={1.75}
-										curve="smooth"
-										label="{b.title} scaling trajectory"
-									/>
-								</div>
+							<div class="mt-1 flex flex-wrap items-baseline gap-2">
+								<div class="font-mono text-2xl font-black text-white">{b.stat2026}</div>
+								<span class="font-mono text-[10px] text-slate-500">vs {b.stat2017}</span>
 							</div>
 
 							{#if bottleneckViewMode === 'progressive'}
