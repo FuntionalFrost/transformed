@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { portal } from 'yaxa-svelte';
 	import type { Milestone } from '../types';
 	import { CATEGORIES } from '../data/timeline';
 	import KatexMath from './KatexMath.svelte';
@@ -38,8 +39,9 @@
 <svelte:window onkeydown={handleKeydown} />
 
 {#if milestone && category}
-	<!-- Modal Container with fixed overlay -->
+	<!-- Modal Container with fixed overlay, portaled to document.body -->
 	<div
+		use:portal
 		class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-slate-950/80 p-3 backdrop-blur-md sm:p-6"
 		role="dialog"
 		aria-modal="true"

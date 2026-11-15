@@ -1,4 +1,5 @@
 import type { CategoryId } from '../types';
+import type { SparklineColor } from 'yaxa-svelte';
 
 export interface AttentionBottleneck {
 	id: 'context' | 'io' | 'compute' | 'kv-cache';
@@ -8,6 +9,8 @@ export interface AttentionBottleneck {
 	color: 'cyan' | 'amber' | 'emerald' | 'violet';
 	stat2026: string;
 	stat2017: string;
+	sparklineData: number[];
+	sparklineColor: SparklineColor;
 	bottleneck2017: string;
 	breakthrough: string;
 	seaImpact: string;
@@ -46,6 +49,8 @@ export const ATTENTION_BOTTLENECKS: AttentionBottleneck[] = [
 		color: 'cyan',
 		stat2026: '1M+ Tokens',
 		stat2017: '512 Tokens',
+		sparklineData: [0.512, 1, 2, 4, 8, 32, 128, 512, 1000],
+		sparklineColor: 'info',
 		bottleneck2017:
 			'Fixed absolute position embeddings (Vaswani 2017) collapsed beyond 512 tokens. Repositories with tens of thousands of lines had to be aggressively chunked, causing models to lose track of cross-file function calls and imports.',
 		breakthrough:
@@ -66,6 +71,8 @@ export const ATTENTION_BOTTLENECKS: AttentionBottleneck[] = [
 		color: 'amber',
 		stat2026: 'O(N) Linear IO',
 		stat2017: 'O(N²) HBM Thrash',
+		sparklineData: [100, 85, 60, 35, 18, 8, 4, 1],
+		sparklineColor: 'warning',
 		bottleneck2017:
 			'Standard attention materialized the intermediate N × N attention matrix into slow High-Bandwidth Memory (HBM). For an 8k context, this wrote gigabytes of temporary data per forward pass, saturating the GPU memory bus and triggering fatal Out-Of-Memory (OOM) crashes.',
 		breakthrough:
@@ -91,6 +98,8 @@ export const ATTENTION_BOTTLENECKS: AttentionBottleneck[] = [
 		color: 'emerald',
 		stat2026: '73% A100/H100 MFU',
 		stat2017: '<25% MFU (Starved)',
+		sparklineData: [22, 28, 35, 42, 54, 65, 73],
+		sparklineColor: 'success',
 		bottleneck2017:
 			'Despite immense theoretical peak FLOPs, Tensor Cores spent 70–80% of their operational cycles idling, starved while waiting for memory loads across warp boundaries in FP32/FP16 precision.',
 		breakthrough:
@@ -111,6 +120,8 @@ export const ATTENTION_BOTTLENECKS: AttentionBottleneck[] = [
 		color: 'violet',
 		stat2026: '-92% Footprint',
 		stat2017: 'Full Tensor Bloat',
+		sparklineData: [100, 95, 80, 55, 30, 15, 8],
+		sparklineColor: 'neutral',
 		bottleneck2017:
 			'Standard Multi-Head Attention (MHA) required caching full Key and Value tensors for every token, head, and layer. At 128k context, KV-caches demanded tens of gigabytes per concurrent agent session, bottlenecking server concurrency.',
 		breakthrough:
