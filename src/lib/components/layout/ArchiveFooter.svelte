@@ -11,7 +11,27 @@
 					Chronology of architectural, empirical, hardware, alignment, and control breakthroughs.
 				</div>
 			</div>
-			<div class="font-mono text-xs text-slate-500">Built with Svelte 5 & KaTeX</div>
+			<div class="flex items-center gap-2 font-mono text-xs text-slate-500">
+				<span>Built with Svelte 5 & KaTeX</span>
+				<span>·</span>
+				<a
+					href="https://github.com/FuntionalFrost/transformed"
+					target="_blank"
+					rel="noreferrer"
+					class="text-slate-400 underline decoration-slate-700 underline-offset-2 transition-colors hover:text-cyan-300"
+				>
+					GitHub
+				</a>
+				<span>·</span>
+				<a
+					href="https://github.com/FuntionalFrost/transformed/blob/main/LICENSE"
+					target="_blank"
+					rel="noreferrer"
+					class="text-slate-400 underline decoration-slate-700 underline-offset-2 transition-colors hover:text-cyan-300"
+				>
+					MIT
+				</a>
+			</div>
 		</div>
 
 		<!-- Literature Bibliography References -->

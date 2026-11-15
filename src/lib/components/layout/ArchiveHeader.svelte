@@ -144,85 +144,110 @@
 			</div>
 		</div>
 
-		<!-- View Mode Toggles -->
-		<div
-			class="flex items-center gap-0.5 rounded-lg border border-slate-800 bg-slate-900/90 p-0.5 sm:gap-1 sm:p-1"
-		>
-			<button
-				type="button"
-				onclick={() => onSwitchViewMode('timeline')}
-				aria-pressed={viewMode === 'timeline'}
-				class="flex items-center gap-1 rounded-md px-2 py-1 font-mono text-[11px] transition-colors sm:gap-1.5 sm:px-3 sm:text-xs {viewMode ===
-				'timeline'
-					? 'bg-cyan-600 font-bold text-white shadow-sm'
-					: 'text-slate-400 hover:text-slate-200'}"
+		<!-- Actions: View Mode Toggles & GitHub Link -->
+		<div class="flex items-center gap-1.5 sm:gap-2">
+			<!-- View Mode Toggles -->
+			<div
+				class="flex items-center gap-0.5 rounded-lg border border-slate-800 bg-slate-900/90 p-0.5 sm:gap-1 sm:p-1"
+			>
+				<button
+					type="button"
+					onclick={() => onSwitchViewMode('timeline')}
+					aria-pressed={viewMode === 'timeline'}
+					class="flex items-center gap-1 rounded-md px-2 py-1 font-mono text-[11px] transition-colors sm:gap-1.5 sm:px-3 sm:text-xs {viewMode ===
+					'timeline'
+						? 'bg-cyan-600 font-bold text-white shadow-sm'
+						: 'text-slate-400 hover:text-slate-200'}"
+				>
+					<svg
+						class="h-3.5 w-3.5 shrink-0 opacity-80"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<line x1="3" y1="12" x2="21" y2="12" />
+						<polyline points="17 8 21 12 17 16" />
+						<circle cx="7" cy="12" r="2" fill="currentColor" />
+						<circle cx="12" cy="12" r="2" fill="currentColor" />
+					</svg>
+					<span class="hidden sm:inline">Timeline Flow</span>
+					<span class="sm:hidden">Timeline</span>
+				</button>
+				<button
+					type="button"
+					onclick={() => onSwitchViewMode('grid')}
+					aria-pressed={viewMode === 'grid'}
+					class="flex items-center gap-1 rounded-md px-2 py-1 font-mono text-[11px] transition-colors sm:gap-1.5 sm:px-3 sm:text-xs {viewMode ===
+					'grid'
+						? 'bg-cyan-600 font-bold text-white shadow-sm'
+						: 'text-slate-400 hover:text-slate-200'}"
+				>
+					<svg
+						class="h-3.5 w-3.5 shrink-0 opacity-80"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2.2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<rect x="3" y="3" width="7" height="7" rx="1" />
+						<rect x="14" y="3" width="7" height="7" rx="1" />
+						<rect x="14" y="14" width="7" height="7" rx="1" />
+						<rect x="3" y="14" width="7" height="7" rx="1" />
+					</svg>
+					<span class="hidden sm:inline">Matrix Grid</span>
+					<span class="sm:hidden">Grid</span>
+				</button>
+				<button
+					type="button"
+					onclick={() => onSwitchViewMode('lab')}
+					aria-pressed={viewMode === 'lab'}
+					class="flex items-center gap-1 rounded-md px-2 py-1 font-mono text-[11px] transition-colors sm:gap-1.5 sm:px-3 sm:text-xs {viewMode ===
+					'lab'
+						? 'bg-cyan-600 font-bold text-white shadow-sm'
+						: 'text-slate-400 hover:text-slate-200'}"
+				>
+					<svg
+						class="h-3.5 w-3.5 shrink-0 opacity-80"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2.2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+					</svg>
+					<span class="hidden sm:inline">Simulator Lab</span>
+					<span class="sm:hidden">Lab</span>
+				</button>
+			</div>
+
+			<!-- GitHub Source Link -->
+			<a
+				href="https://github.com/FuntionalFrost/transformed"
+				target="_blank"
+				rel="noreferrer"
+				class="group flex h-7 w-7 items-center justify-center rounded-lg border border-slate-800 bg-slate-900/90 text-slate-400 transition-colors hover:border-slate-700 hover:text-white sm:h-8 sm:w-8"
+				title="View source on GitHub"
+				aria-label="View source on GitHub"
 			>
 				<svg
-					class="h-3.5 w-3.5 shrink-0 opacity-80"
+					class="h-4 w-4 transition-transform group-hover:scale-105"
 					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
+					fill="currentColor"
 				>
-					<line x1="3" y1="12" x2="21" y2="12" />
-					<polyline points="17 8 21 12 17 16" />
-					<circle cx="7" cy="12" r="2" fill="currentColor" />
-					<circle cx="12" cy="12" r="2" fill="currentColor" />
+					<path
+						fill-rule="evenodd"
+						clip-rule="evenodd"
+						d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+					/>
 				</svg>
-				<span class="hidden sm:inline">Timeline Flow</span>
-				<span class="sm:hidden">Timeline</span>
-			</button>
-			<button
-				type="button"
-				onclick={() => onSwitchViewMode('grid')}
-				aria-pressed={viewMode === 'grid'}
-				class="flex items-center gap-1 rounded-md px-2 py-1 font-mono text-[11px] transition-colors sm:gap-1.5 sm:px-3 sm:text-xs {viewMode ===
-				'grid'
-					? 'bg-cyan-600 font-bold text-white shadow-sm'
-					: 'text-slate-400 hover:text-slate-200'}"
-			>
-				<svg
-					class="h-3.5 w-3.5 shrink-0 opacity-80"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2.2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-				>
-					<rect x="3" y="3" width="7" height="7" rx="1" />
-					<rect x="14" y="3" width="7" height="7" rx="1" />
-					<rect x="14" y="14" width="7" height="7" rx="1" />
-					<rect x="3" y="14" width="7" height="7" rx="1" />
-				</svg>
-				<span class="hidden sm:inline">Matrix Grid</span>
-				<span class="sm:hidden">Grid</span>
-			</button>
-			<button
-				type="button"
-				onclick={() => onSwitchViewMode('lab')}
-				aria-pressed={viewMode === 'lab'}
-				class="flex items-center gap-1 rounded-md px-2 py-1 font-mono text-[11px] transition-colors sm:gap-1.5 sm:px-3 sm:text-xs {viewMode ===
-				'lab'
-					? 'bg-cyan-600 font-bold text-white shadow-sm'
-					: 'text-slate-400 hover:text-slate-200'}"
-			>
-				<svg
-					class="h-3.5 w-3.5 shrink-0 opacity-80"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2.2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-				>
-					<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-				</svg>
-				<span class="hidden sm:inline">Simulator Lab</span>
-				<span class="sm:hidden">Lab</span>
-			</button>
+			</a>
 		</div>
 	</div>
 </header>
