@@ -1,16 +1,13 @@
 <script lang="ts">
 	import { TIMELINE_MILESTONES, CATEGORIES } from '../lib/data/timeline';
-	import type { CategoryId, CategoryInfo, Milestone } from '../lib/types';
+	import type { CategoryId, CategoryInfo, LabTabId, Milestone, NeuroDrugId } from '../lib/types';
 	import MilestoneModal from '../lib/components/MilestoneModal.svelte';
 	import ArchiveHeader from '../lib/components/layout/ArchiveHeader.svelte';
 	import ArchiveFooter from '../lib/components/layout/ArchiveFooter.svelte';
 	import HeroArchitectureDie from '../lib/components/hero/HeroArchitectureDie.svelte';
 	import SeaStackSection from '../lib/components/stack/SeaStackSection.svelte';
 	import TimelineFilterDock from '../lib/components/controls/TimelineFilterDock.svelte';
-	import SimulatorLabSuite, {
-		type LabTabId,
-		type NeuroDrugId
-	} from '../lib/components/views/SimulatorLabSuite.svelte';
+	import SimulatorLabSuite from '../lib/components/views/SimulatorLabSuite.svelte';
 	import TimelineFlowView from '../lib/components/views/TimelineFlowView.svelte';
 	import MatrixGridView from '../lib/components/views/MatrixGridView.svelte';
 

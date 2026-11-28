@@ -1,39 +1,6 @@
 <script lang="ts">
-	import KVLatentCalculator from '../interactive/KVLatentCalculator.svelte';
-	import GRPOSimulator from '../interactive/GRPOSimulator.svelte';
-	import ChinchillaSimulator from '../interactive/ChinchillaSimulator.svelte';
-	import PassKCalculator from '../interactive/PassKCalculator.svelte';
-	import PrecisionExplorer from '../interactive/PrecisionExplorer.svelte';
-	import ReActLoopSimulator from '../interactive/ReActLoopSimulator.svelte';
-	import FlashAttentionVisualizer from '../interactive/FlashAttentionVisualizer.svelte';
-	import TestTimeSearchSimulator from '../interactive/TestTimeSearchSimulator.svelte';
-	import PageRankExplorer from '../interactive/PageRankExplorer.svelte';
-	import AttentionExploder from '../interactive/AttentionExploder.svelte';
-	import NeuroAttentionExplorer from '../interactive/NeuroAttentionExplorer.svelte';
-	import RopeExplorer from '../interactive/RopeExplorer.svelte';
-	import FimSimulator from '../interactive/FimSimulator.svelte';
-	import MtpVisualizer from '../interactive/MtpVisualizer.svelte';
-	import TensorTileBitboard from '../interactive/TensorTileBitboard.svelte';
-
-	export type LabTabId =
-		| 'bitboard'
-		| 'mla'
-		| 'grpo'
-		| 'chinchilla'
-		| 'passk'
-		| 'flash'
-		| 'test-time'
-		| 'react'
-		| 'precision'
-		| 'pagerank'
-		| 'attention'
-		| 'neuro'
-		| 'rope'
-		| 'fim'
-		| 'mtp';
-
-	export type NeuroDrugId =
-		'lisdexamfetamine' | 'methylphenidate' | 'dextroamphetamine' | 'acetylcholine';
+	import type { LabTabId, NeuroDrugId } from '../../types';
+	import SimulatorRenderer from '../interactive/SimulatorRenderer.svelte';
 
 	let {
 		activeLabTab = $bindable('bitboard'),
@@ -234,36 +201,6 @@
 	</div>
 
 	<div class="mt-4">
-		{#if activeLabTab === 'bitboard'}
-			<TensorTileBitboard />
-		{:else if activeLabTab === 'mla'}
-			<KVLatentCalculator />
-		{:else if activeLabTab === 'grpo'}
-			<GRPOSimulator />
-		{:else if activeLabTab === 'chinchilla'}
-			<ChinchillaSimulator />
-		{:else if activeLabTab === 'passk'}
-			<PassKCalculator />
-		{:else if activeLabTab === 'flash'}
-			<FlashAttentionVisualizer />
-		{:else if activeLabTab === 'test-time'}
-			<TestTimeSearchSimulator />
-		{:else if activeLabTab === 'precision'}
-			<PrecisionExplorer />
-		{:else if activeLabTab === 'react'}
-			<ReActLoopSimulator />
-		{:else if activeLabTab === 'pagerank'}
-			<PageRankExplorer />
-		{:else if activeLabTab === 'attention'}
-			<AttentionExploder />
-		{:else if activeLabTab === 'rope'}
-			<RopeExplorer />
-		{:else if activeLabTab === 'fim'}
-			<FimSimulator />
-		{:else if activeLabTab === 'mtp'}
-			<MtpVisualizer />
-		{:else if activeLabTab === 'neuro'}
-			<NeuroAttentionExplorer bind:selectedDrug={selectedNeuroDrug} />
-		{/if}
+		<SimulatorRenderer id={activeLabTab} bind:selectedNeuroDrug />
 	</div>
 </section>

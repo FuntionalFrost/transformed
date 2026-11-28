@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { smoothSlide } from 'yaxa-svelte';
 	import KatexMath from '../KatexMath.svelte';
-	import TensorTileBitboard from '../interactive/TensorTileBitboard.svelte';
+	import SimulatorRenderer from '../interactive/SimulatorRenderer.svelte';
 	import { ATTENTION_BOTTLENECKS } from '../../data/progressiveArchitecture';
-	import type { LabTabId } from '../views/SimulatorLabSuite.svelte';
+	import type { LabTabId } from '../../types';
 
 	let {
 		selectedYear = $bindable('all'),
@@ -288,7 +288,7 @@
 			{:else}
 				<!-- 16x16 SRAM Tile Bitboard View -->
 				<div class="py-1">
-					<TensorTileBitboard />
+					<SimulatorRenderer id="bitboard" />
 				</div>
 			{/if}
 

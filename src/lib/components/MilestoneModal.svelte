@@ -3,20 +3,7 @@
 	import type { Milestone } from '../types';
 	import { CATEGORIES } from '../data/timeline';
 	import KatexMath from './KatexMath.svelte';
-	import KVLatentCalculator from './interactive/KVLatentCalculator.svelte';
-	import ChinchillaSimulator from './interactive/ChinchillaSimulator.svelte';
-	import PassKCalculator from './interactive/PassKCalculator.svelte';
-	import GRPOSimulator from './interactive/GRPOSimulator.svelte';
-	import ReActLoopSimulator from './interactive/ReActLoopSimulator.svelte';
-	import PrecisionExplorer from './interactive/PrecisionExplorer.svelte';
-	import PageRankExplorer from './interactive/PageRankExplorer.svelte';
-	import AttentionExploder from './interactive/AttentionExploder.svelte';
-	import FlashAttentionVisualizer from './interactive/FlashAttentionVisualizer.svelte';
-	import TestTimeSearchSimulator from './interactive/TestTimeSearchSimulator.svelte';
-	import NeuroAttentionExplorer from './interactive/NeuroAttentionExplorer.svelte';
-	import RopeExplorer from './interactive/RopeExplorer.svelte';
-	import FimSimulator from './interactive/FimSimulator.svelte';
-	import MtpVisualizer from './interactive/MtpVisualizer.svelte';
+	import SimulatorRenderer from './interactive/SimulatorRenderer.svelte';
 
 	interface Props {
 		milestone: Milestone | null;
@@ -119,35 +106,7 @@
 			<!-- Interactive Tool Mount (if available) -->
 			{#if milestone.interactiveToolId}
 				<div class="mt-6">
-					{#if milestone.interactiveToolId === 'mla'}
-						<KVLatentCalculator />
-					{:else if milestone.interactiveToolId === 'chinchilla'}
-						<ChinchillaSimulator />
-					{:else if milestone.interactiveToolId === 'passk'}
-						<PassKCalculator />
-					{:else if milestone.interactiveToolId === 'grpo'}
-						<GRPOSimulator />
-					{:else if milestone.interactiveToolId === 'react'}
-						<ReActLoopSimulator />
-					{:else if milestone.interactiveToolId === 'precision'}
-						<PrecisionExplorer />
-					{:else if milestone.interactiveToolId === 'pagerank'}
-						<PageRankExplorer />
-					{:else if milestone.interactiveToolId === 'attention'}
-						<AttentionExploder />
-					{:else if milestone.interactiveToolId === 'flash'}
-						<FlashAttentionVisualizer />
-					{:else if milestone.interactiveToolId === 'test-time'}
-						<TestTimeSearchSimulator />
-					{:else if milestone.interactiveToolId === 'neuro'}
-						<NeuroAttentionExplorer />
-					{:else if milestone.interactiveToolId === 'rope'}
-						<RopeExplorer />
-					{:else if milestone.interactiveToolId === 'fim'}
-						<FimSimulator />
-					{:else if milestone.interactiveToolId === 'mtp'}
-						<MtpVisualizer />
-					{/if}
+					<SimulatorRenderer id={milestone.interactiveToolId} />
 				</div>
 			{/if}
 

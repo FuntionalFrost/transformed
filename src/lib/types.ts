@@ -18,6 +18,26 @@ export interface EquationTerm {
 	explanation: string;
 }
 
+export type LabTabId =
+	| 'bitboard'
+	| 'mla'
+	| 'grpo'
+	| 'chinchilla'
+	| 'passk'
+	| 'flash'
+	| 'test-time'
+	| 'react'
+	| 'precision'
+	| 'pagerank'
+	| 'attention'
+	| 'neuro'
+	| 'rope'
+	| 'fim'
+	| 'mtp';
+
+export type NeuroDrugId =
+	'lisdexamfetamine' | 'methylphenidate' | 'dextroamphetamine' | 'acetylcholine';
+
 export interface Milestone {
 	id: string;
 	year: number;
@@ -43,21 +63,7 @@ export interface Milestone {
 	};
 	impactOnCodingAgents: string[];
 	technicalDeepDive: string;
-	interactiveToolId?:
-		| 'attention'
-		| 'rope'
-		| 'chinchilla'
-		| 'flash'
-		| 'passk'
-		| 'fim'
-		| 'react'
-		| 'mla'
-		| 'grpo'
-		| 'test-time'
-		| 'mtp'
-		| 'pagerank'
-		| 'precision'
-		| 'neuro';
+	interactiveToolId?: Exclude<LabTabId, 'bitboard'>;
 	metrics?: {
 		label: string;
 		value: string;

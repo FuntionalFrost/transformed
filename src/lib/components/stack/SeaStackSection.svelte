@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { SEA_PILLARS } from '../../data/progressiveArchitecture';
 	import { TIMELINE_MILESTONES } from '../../data/timeline';
-	import type { CategoryId } from '../../types';
-	import type { LabTabId } from '../views/SimulatorLabSuite.svelte';
+	import type { CategoryId, LabTabId } from '../../types';
 
 	let {
 		selectedCategory = $bindable('all'),
